@@ -21,9 +21,11 @@ export default function App() {
 
     try {
       const newMovieList = await fetchMovies(query);
-      setMovieList(newMovieList);
+      if (newMovieList) {
+        setMovieList(newMovieList);
+      }
 
-      if (newMovieList.length === 0) {
+      if (!newMovieList || newMovieList.length === 0) {
         toast.error("No movies found for your request.");
       }
     } catch {
