@@ -2,7 +2,7 @@ import type { Movie } from "../types/movie";
 import axios from 'axios';
 
 const API_URL = 'https://api.themoviedb.org/3';
-const BEARER_TOKEN = import.meta.env.VITE_BEARER_TOKEN;
+const BEARER_TOKEN = import.meta.env.VITE_API_KEY;
 
 export const fetchMovies = async (query: string): Promise<Array<Movie> | undefined> => {
     try {
