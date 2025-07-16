@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import type { Movie } from '../../types/movie';
 import css from './MovieModal.module.css';
+import { createPortal } from 'react-dom';
 
 interface MovieModalProps {
   onClose: () => void;
@@ -30,7 +31,7 @@ function MovieModal({ onClose, movie }: MovieModalProps) {
     }
   };
 
-  return (
+  return createPortal(
     <div
       className={css.backdrop}
       role="dialog"
@@ -65,7 +66,8 @@ function MovieModal({ onClose, movie }: MovieModalProps) {
           </p>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
