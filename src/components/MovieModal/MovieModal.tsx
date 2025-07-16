@@ -14,7 +14,7 @@ function MovieModal({ onClose, movie }: MovieModalProps) {
           &times;
         </button>
         <img
-          src={movie.backdrop_path}
+          src={'https://image.tmdb.org/t/p/original' + movie.poster_path}
           alt={movie.title}
           className={css.image}
         />
