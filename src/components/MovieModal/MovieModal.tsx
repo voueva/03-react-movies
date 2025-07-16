@@ -1,23 +1,59 @@
+import { useEffect } from 'react';
 import type { Movie } from '../../types/movie';
 import css from './MovieModal.module.css';
 
 interface MovieModalProps {
   onClose: () => void;
-  movie: Movie; 
-} 
+  movie: Movie;
+}
 
 function MovieModal({ onClose, movie }: MovieModalProps) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={css.backdrop} role="dialog" aria-modal="true">
+    <div
+      className={css.backdrop}
+      role="dialog"
+      aria-modal="true"
+      onClick={handleBackdropClick}
+    >
       <div className={css.modal}>
-        <button onClick={onClose} className={css.closeButton} aria-label="Close modal">
+        <button
+          onClick={onClose}
+          className={css.closeButton}
+          aria-label="Close modal"
+        >
           &times;
         </button>
-        <img
-          src={'https://image.tmdb.org/t/p/original' + movie.poster_path}
-          alt={movie.title}
-          className={css.image}
-        />
+
+        {movie.backdrop_path && (
+          <img
+            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+            alt={movie.title}
+            className={css.image}
+          />
+        )}
+
         <div className={css.content}>
           <h2>{movie.title}</h2>
           <p>{movie.overview}</p>
