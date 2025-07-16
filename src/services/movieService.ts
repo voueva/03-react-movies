@@ -1,6 +1,7 @@
 import type { Movie } from "../types/movie";
 import axios from 'axios';
 
+
 const API_URL = 'https://api.themoviedb.org/3';
 const BEARER_TOKEN = import.meta.env.BEARER_TOKEN;
 
